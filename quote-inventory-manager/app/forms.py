@@ -54,6 +54,16 @@ class HddCapacityForm(ModelForm):
 
 
 
+class NasAccessoryForm(ModelForm):
+    class Meta:
+        model = Nas_Accessory
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
+        
 
 
 
@@ -127,28 +137,28 @@ class NasAccessoryCategoryForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        super.helper = FormHelper()
-        super.helper.form_show_labels = False
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
 
 
 
-class Nas_Accessory(ModelForm):
+class NasAccessoryForm(ModelForm):
     class Meta:
         model = Nas_Accessory
         fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        super.helper = FormHelper()
-        super.helper.form_show_labels = False
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
 
 
-class Nas_Model (ModelForm):
+class NasModelForm (ModelForm):
     class Meta:
         model = Nas_Model
         fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super().__init__( *args, **kwargs)
-        super.helper = FormHelper()
-        super.helper.form_show_labels = False
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False

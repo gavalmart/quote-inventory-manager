@@ -51,39 +51,71 @@ class Nas_Accessory_Category(models.Model):
     created_time = models.DateTimeField(auto_now_add=True, null=False)
     updated_time = models.DateTimeField(auto_now=True, null=True)
 
+    def __str__(self) -> str:
+        return self.name
+
+
+class Nas_Model(models.Model):
+    warranty_period_choices = (
+                            (2,2), (3,3), (5,5)
+                        )
+    
+    cpu_quantity_choices = (
+                        (1,1), (2,2), (3,3), (4,4)
+                    )
+    
+    cores_per_cpu_choices = (
+                                (2,2), (4,4), (6,6), (8,8), (10,10), (12,12)
+                            )
+    oneGb_ports_qty_choices = (
+                                (1,1), (2,2), (3,3), (4,4)
+                              )
+
+    hdd_slots_choices = (
+                            (1,1), (2,2), (4,4), (5,5), (6,6), (8,8), (12,12)
+                        )
+
+
+    maker = models.ForeignKey(Maker,on_delete=models.PROTECT)
+    model = models.CharField(max_length=12, null=False, blank=False)
+    launch_year = models.PositiveSmallIntegerField(null=False)
+    warranty_years = models.PositiveSmallIntegerField(null=False, default=2, choices=warranty_period_choices)
+    cpu_model = models.CharField(max_length=25, null=True)
+    cpu_qty = models.PositiveBigIntegerField(null=False, default=1, choices=cpu_quantity_choices)
+    cores_per_cpu = models.PositiveBigIntegerField(null=False, default=1, choices=cores_per_cpu_choices)
+    weight_in_pounds = models.FloatField(null=False, default=0.00)
+    msrp = models.FloatField(null=False, default=0.00)
+    is_rackable = models.BooleanField(null=False, default=False)
+    has_redundant_ps = models.BooleanField(null=False, default=False)
+    pci_slots_qty = models.PositiveSmallIntegerField(null=False, default=0)
+    m2_compatible = models.BooleanField(null=False, default=False)
+    m2_internal_slots_qty = models.PositiveSmallIntegerField(null=False, default=0)
+    ram_default_GB = models.PositiveSmallIntegerField(null=False, default=2)
+    ram_max_GB = models.PositiveSmallIntegerField(null=False, default=0)
+    ram_slots = models.PositiveSmallIntegerField(null=False, default=0)
+    hdd_internal_slots = models.PositiveSmallIntegerField(null=False, default=1, choices=hdd_slots_choices)
+    hdd_max_slots = models.PositiveSmallIntegerField(null=False, default=0)
+    hdd_max_expansion_units_qty = models.PositiveSmallIntegerField(null=True)
+    oneGb_nic_qty = models.PositiveSmallIntegerField(null=False, default=0, choices=oneGb_ports_qty_choices)
+    tenGb_compatible = models.BooleanField(null=False, default=False)
+    tenGb_nic_qty = models.PositiveSmallIntegerField(null=False, default=0)
+    active = models.BooleanField(null=False, default=False)
+    created_time = models.DateTimeField(auto_now_add=True,  null=False)
+    updated_time = models.DateTimeField(auto_now=True, null=True)
+
+
+    def __str__(self) -> str:
+        return f'{self.maker.name} - {self.model}'
 
 class Nas_Accessory(models.Model):
-    #nas_model = ForeignKey()
+#    nas_model = models.ForeignKey(Nas_Model, on_delete=models.PROTECT, null=False, default=0)
+    nas_model = models.ForeignKey(Nas_Model, on_delete=models.PROTECT)
     category = models.ForeignKey(Nas_Accessory_Category, on_delete= models.PROTECT)
-    maker = models.ForeignKey(Maker, on_delete=models.PROTECT)
     model = models.CharField(max_length=25, null=False, blank=False)
     msrp = models.FloatField(null=False)
     active = models.BooleanField(null=False, default=True)
     created_time = models.DateTimeField(auto_now_add=True, null=False)
     updated_time = models.DateTimeField(auto_now=True, null=True)
 
-class Nas_Model(models.Model):
-    model = models.CharField(max_length=12, null=False, blank=False)
-    launch_year = models.PositiveSmallIntegerField(null=False)
-    warranty_years = models.PositiveSmallIntegerField(null=False)
-    is_rackable = models.BooleanField(null=False, default=False)
-    has_redundant_ps = models.BooleanField(null=False, default=False)
-    hdd_internal_slots = models.PositiveSmallIntegerField(null=False)
-    ram_default = models.PositiveSmallIntegerField(null=False)
-    ram_max = models.PositiveSmallIntegerField(null=False)
-    ram_slots = models.PositiveSmallIntegerField(null=False)
-    pci_slots_qty = models.PositiveSmallIntegerField(null=False)
-    hdd_max_slots = models.PositiveSmallIntegerField(null=False)
-    hdd_max_expansion_units_qty = models.PositiveSmallIntegerField(null=False)
-    oneGb_nic_qty = models.PositiveSmallIntegerField(null=False)
-    tenGb_compatible = models.BooleanField(null=False, default=False)
-    tenGb_nic_qty = models.PositiveSmallIntegerField(null=False)
-    m2_compatible = models.BooleanField(null=False, default=False)
-    m2_internal_slots_qty = models.PositiveSmallIntegerField(null=False)
-    msrp = models.FloatField(null=False, default=0.00)
-    weight_in_pounds = models.FloatField(null=False, default=0.00)
-    active = models.BooleanField(null=False, default=False)
-    created_time = models.DateTimeField(auto_now_add=True,  null=False)
-    updated_time = models.DateTimeField(auto_now=True, null=False)
-
-    maker = models.ForeignKey(Maker,on_delete=models.PROTECT)
+    def __str__(self) -> str:
+        return f'{self.nas_model.maker.name} {self.category.name} {self.model}'

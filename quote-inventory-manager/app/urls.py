@@ -32,4 +32,18 @@ urlpatterns = [
     path('edit_hdd_capacity/<str:hdd_cap_id>', views.edit_hdd_capacity, name="edit_hdd_capacity"),
     path('delete_hdd_capacity/<str:hdd_cap_id>', views.delete_hdd_capacity, name="delete_hdd_capacity"),
 
+    path('nas_accessory_categories/', views.nas_accessory_categories, name="nas_accessory_categories"),
+    path('add_nas_accessory_category/', views.add_nas_accessory_category, name="add_nas_accessory_category"),
+    path('edit_nas_accessory_category/<str:nas_acc_cat_id>', views.edit_nas_accessory_category, name="edit_nas_accessory_category"),
+    path('delete_nas_accessory_category/<str:nas_acc_cat_id>', views.delete_nas_accessory_category, name="delete_nas_accessory_category"),
+
+    path('nas_models/', views.nas_models, name="nas_models"),
+    path('add_nas_model', views.add_nas_model, name="add_nas_model"),
+    path('edit_nas_model/<str:nas_model_id>', views.edit_nas_model, name="edit_nas_model"),
+    path('delete_nas_model/<str:nas_model_id>', views.delete_nas_model, name="delete_nas_model" ),
+
+    path('nas_accessories/', views.nas_accessories, name="nas_accessories"),
+    path('add_nas_accessory', views.add_nas_accessory, name="add_nas_accessory"),
+    path('edit_nas_accessory/<str:nas_acc_id>', views.edit_nas_accessory, name="edit_nas_accessory"),
+    path('delete_nas_accessory/<str:nas_acc_id>', views.delete_nas_accessory, name="delete_nas_accessory"),
 ]

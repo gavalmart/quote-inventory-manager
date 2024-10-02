@@ -96,6 +96,34 @@
         <script src="/static/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
         <!-- starrr -->
         <script src="/static/vendors/starrr/dist/starrr.js"></script>
+
+        <script>
+            var form = document.querySelector('form')
+            var elements = form.querySelectorAll(type="select");
+            console.log(elements);
+
+            elements.forEach(element =>
+              {
+                element.classList.add("form-control");
+              }
+            )
+
+            // console.log("executing");
+            // for (var element in  elements){
+            //     //element.className = "select form-control";
+            //     element.classList.add("form-control");
+            //     //console.log(element.className); 
+            // }
+
+            // elements.forEach(
+            //     element => {
+            //         // element.classList.remove('custom-select');
+            //         // element.classList.add("form-control");
+            //         element.className = "select form-control";
+
+            //       });
+
+        </script>
       {% endblock %}
       <!-- Custom Theme Scripts -->
       <script src="/static/build/js/custom.js"></script>
